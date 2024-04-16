@@ -15,7 +15,7 @@
     "fix:eslint": "eslint --ext .js,.jsx,.ts,.tsx --fix src"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.2.6",
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "framer-motion": "^7.0.0",
