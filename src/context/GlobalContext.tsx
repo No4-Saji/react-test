@@ -1,7 +1,7 @@
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import React from "react";
-import type { State, TypeAndPushPayload } from "./ContextWrapper";
+import type { State, TypeAndPayload } from "./ContextWrapper";
 
 const GlobalContext = React.createContext<{
   monthIndex: number;
@@ -10,8 +10,10 @@ const GlobalContext = React.createContext<{
   setDaySelected: (day: Dayjs) => void;
   showEventModal: boolean;
   setShowEventModal: (value: boolean) => void;
-  dispatchCalEvent: React.Dispatch<TypeAndPushPayload>;
-  savedEvents: State;
+  dispatchCalEvent: React.Dispatch<TypeAndPayload>;
+  savedEvents: State[];
+  selectedEvent: null | State;
+  setSelectedEvent: (evt: State) => void;
 }>({
   monthIndex: 0,
   setMonthIndex: (): void => {},
@@ -21,6 +23,8 @@ const GlobalContext = React.createContext<{
   setShowEventModal: (): void => {},
   dispatchCalEvent: (): void => {},
   savedEvents: [],
+  selectedEvent: null,
+  setSelectedEvent: (): void => {},
 });
 
 export default GlobalContext;

@@ -16,7 +16,7 @@ export type State = {
   memo: string;
   day: Dayjs;
   id: number;
-}[];
+};
 
 export type TypeAndPushPayload = {
   type: "push";
@@ -57,15 +57,22 @@ export type TypeAndDeletePayload = {
   };
 };
 
-type TypeAndPayload =
+export type TypeAndPayload =
   | TypeAndPushPayload
   | TypeAndUpdatePayload
   | TypeAndDeletePayload;
 
-const saveEventsReducer = (state: State, { type, payload }: TypeAndPayload) => {
+const saveEventsReducer = (
+  state: State[],
+  { type, payload }: TypeAndPayload
+) => {
   switch (type) {
     case "push":
       return [...state, payload];
+    case "update":
+      return state.map((evt) => (evt.id === payload.id ? payload : evt));
+    case "delete":
+      return state.filter((evt) => evt.id !== payload.id);
     default:
       throw new Error();
   }
@@ -73,7 +80,7 @@ const saveEventsReducer = (state: State, { type, payload }: TypeAndPayload) => {
 
 const initEvents = () => {
   const storageEvents = localStorage.getItem("savedEvents");
-  const parsedEvents: State = storageEvents ? JSON.parse(storageEvents) : [];
+  const parsedEvents: State[] = storageEvents ? JSON.parse(storageEvents) : [];
   return parsedEvents;
 };
 
@@ -81,6 +88,7 @@ const ContextWrapper = (props: Props) => {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [daySelected, setDaySelected] = useState<Dayjs>(dayjs());
   const [showEventModal, setShowEventModal] = useState<boolean>(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [savedEvents, dispatchCalEvent] = useReducer(
     saveEventsReducer,
     [],
@@ -93,6 +101,12 @@ const ContextWrapper = (props: Props) => {
     localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
   }, [savedEvents]);
 
+  useEffect(() => {
+    if (!showEventModal) {
+      setSelectedEvent(null);
+    }
+  }, [showEventModal]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -102,6 +116,8 @@ const ContextWrapper = (props: Props) => {
         setDaySelected,
         showEventModal,
         setShowEventModal,
+        selectedEvent,
+        setSelectedEvent,
         dispatchCalEvent,
         savedEvents,
       }}

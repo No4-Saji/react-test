@@ -74,10 +74,10 @@ code {
 /*グリッド*/
 .gridparent {
   display: grid;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 50px;
   grid-template-columns: 200px 200px 200px 200px 200px 200px 200px;
-  grid-auto-rows: 170px 150px 150px 150px 150px;
+  grid-auto-rows: 170px 150px 150px 150px 150px 150px;
 }
 
 .gridChild1 {
@@ -93,6 +93,7 @@ code {
   color: white;
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: black;
+  text-align: center;
 }
 
 /*予定追加する際のスタイル*/
@@ -114,6 +115,7 @@ code {
 }
 
 .scheduleIndicate {
+  cursor: pointer;
   color: white;
   background-color: #00a4ac;
 }
@@ -122,9 +124,9 @@ code {
 
 .modalWindow {
   height: 25vh;
-  width: 50%;
+  width: 70%;
   position: fixed;
-  top: 150px;
+  top: 180px;
   left: 0;
   display: flex;
   justify-content: center;
@@ -141,23 +143,22 @@ code {
 
 .modalHeader {
   background-color: var(--main-color);
-  padding: 0.5rem;
+  padding: 0.25rem;
   display: flex;
 }
 
-.modalClose {
-  padding: 4px;
-  height: 25px;
+.modalIcon {
+  padding: 1rem;
+  height: 15px;
   color: white;
   font-size: 1.25rem;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.modalClose:hover {
-  padding: 4px;
+.modalClose:hover,
+.modalDelete:hover {
   color: var(--sub-color);
-  font-size: 1.25rem;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -203,15 +204,18 @@ code {
   transition: 0.3s;
 }
 
-.modalTime {
+.modalTime,
+.modalDate {
   text-align: center;
   color: gray;
 }
 
+.modalDate:hover,
 .modalTime:hover {
   cursor: pointer;
 }
 
+.modalDate:focus,
 .modalTime:focus {
   cursor: default;
 }
@@ -267,10 +271,12 @@ code {
   background-color: var(--sub-color);
   padding-left: 10px;
   color: var(--border-text-color);
+  text-align: center;
 }
 /*当日以外*/
 .child1OfText {
   background-color: black;
   padding-left: 10px;
   color: var(--border-text-color);
+  text-align: center;
 }

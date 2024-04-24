@@ -1,19 +1,29 @@
 import { useState, useContext } from "react";
-import { MdClose } from "react-icons/md";
+import { MdDeleteForever, MdClose } from "react-icons/md";
 import GlobalContext from "../context/GlobalContext";
 
 export const EventModal = () => {
-  const { daySelected, setShowEventModal, dispatchCalEvent } =
+  const { daySelected, setShowEventModal, dispatchCalEvent, selectedEvent } =
     useContext(GlobalContext);
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>(
+    selectedEvent ? selectedEvent.title : ""
+  );
 
-  const [startTime, setStartTime] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>(
+    selectedEvent ? selectedEvent.startTime : ""
+  );
 
-  const [finishTime, setFinishTime] = useState<string>("");
+  const [finishTime, setFinishTime] = useState<string>(
+    selectedEvent ? selectedEvent.finishTime : ""
+  );
 
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<string>(
+    selectedEvent ? selectedEvent.date : ""
+  );
 
-  const [memo, setMemo] = useState<string>("");
+  const [memo, setMemo] = useState<string>(
+    selectedEvent ? selectedEvent.memo : ""
+  );
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     // クリック時に送信するというdefaultの動作をキャンセルする
@@ -25,9 +35,13 @@ export const EventModal = () => {
       finishTime: finishTime,
       memo: memo,
       day: daySelected,
-      id: Date.now(),
+      id: selectedEvent ? selectedEvent.id : Date.now(),
     };
-    dispatchCalEvent({ type: "push", payload: calendarEvent });
+    if (selectedEvent) {
+      dispatchCalEvent({ type: "update", payload: calendarEvent });
+    } else {
+      dispatchCalEvent({ type: "push", payload: calendarEvent });
+    }
     setShowEventModal(false);
   };
 
@@ -35,10 +49,24 @@ export const EventModal = () => {
     <div className="modalWindow">
       <form className="modalWindowOfLayout">
         <header className="modalHeader">
-          <div className="modalClose">
-            <button onClick={() => setShowEventModal(false)}>
+          <div className="modalIcon">
+            <button
+              className="modalClose"
+              onClick={() => setShowEventModal(false)}
+            >
               <MdClose />
             </button>
+            {selectedEvent && (
+              <button
+                className="modalDelete"
+                onClick={() => {
+                  dispatchCalEvent({ type: "delete", payload: selectedEvent });
+                  setShowEventModal(false);
+                }}
+              >
+                <MdDeleteForever />
+              </button>
+            )}
           </div>
         </header>
         <div className="paddingModal">
@@ -48,16 +76,17 @@ export const EventModal = () => {
               {daySelected?.format("YYYY, MMMM DD") ?? "NULL"}
             </p>
             <input
+              required
               type="text"
               name="title"
               maxLength={10}
-              placeholder="Add title"
+              placeholder="タイトルを入力"
               value={title}
-              required
               className="modalTitle"
               onChange={(e) => setTitle(e.target.value)}
             />
             <input
+              required
               type="date"
               name="dateSelector"
               value={date}
@@ -84,10 +113,9 @@ export const EventModal = () => {
               id="modal-finish-time"
               onChange={(e) => setFinishTime(e.target.value)}
             />
-            <input
-              type="text"
+            <textarea
               name="memo"
-              placeholder="Add memo"
+              placeholder="memo"
               value={memo}
               className="modalMemo"
               onChange={(e) => setMemo(e.target.value)}
@@ -95,7 +123,7 @@ export const EventModal = () => {
           </div>
         </div>
         <footer className="modalFooter">
-          <button type="button" onClick={handleSubmit} className="saveButton">
+          <button type="submit" onClick={handleSubmit} className="saveButton">
             Save
           </button>
         </footer>
