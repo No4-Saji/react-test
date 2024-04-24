@@ -25,9 +25,9 @@ export const EventModal = () => {
     selectedEvent ? selectedEvent.memo : ""
   );
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = () => {
     // クリック時に送信するというdefaultの動作をキャンセルする
-    e.preventDefault();
+    // e.preventDefault();
     const calendarEvent = {
       title: title,
       date: date,
@@ -76,19 +76,19 @@ export const EventModal = () => {
               {daySelected?.format("YYYY, MMMM DD") ?? "NULL"}
             </p>
             <input
-              required
               type="text"
               name="title"
               maxLength={10}
+              required
               placeholder="タイトルを入力"
               value={title}
               className="modalTitle"
               onChange={(e) => setTitle(e.target.value)}
             />
             <input
-              required
               type="date"
               name="dateSelector"
+              required
               value={date}
               className="modalDate"
               onChange={(e) => setDate(e.target.value)}
