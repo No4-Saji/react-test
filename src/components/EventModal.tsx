@@ -25,9 +25,9 @@ export const EventModal = () => {
     selectedEvent ? selectedEvent.memo : ""
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     // クリック時に送信するというdefaultの動作をキャンセルする
-    // e.preventDefault();
+    e.preventDefault();
     const calendarEvent = {
       title: title,
       date: date,
@@ -37,12 +37,16 @@ export const EventModal = () => {
       day: daySelected,
       id: selectedEvent ? selectedEvent.id : Date.now(),
     };
-    if (selectedEvent) {
-      dispatchCalEvent({ type: "update", payload: calendarEvent });
+    if (!title || !date) {
+      alert("必須項目（タイトル、日付）が未入力です。");
     } else {
-      dispatchCalEvent({ type: "push", payload: calendarEvent });
+      if (selectedEvent) {
+        dispatchCalEvent({ type: "update", payload: calendarEvent });
+      } else {
+        dispatchCalEvent({ type: "push", payload: calendarEvent });
+      }
+      setShowEventModal(false);
     }
-    setShowEventModal(false);
   };
 
   return (
@@ -77,7 +81,7 @@ export const EventModal = () => {
             </p>
             <input
               type="text"
-              name="title"
+              name={title}
               maxLength={10}
               required
               placeholder="タイトルを入力"
@@ -88,7 +92,7 @@ export const EventModal = () => {
             <input
               type="date"
               name="dateSelector"
-              required
+              aria-required
               value={date}
               className="modalDate"
               onChange={(e) => setDate(e.target.value)}
