@@ -1,0 +1,276 @@
+/*プロトタイプ宣言*/
+:root {
+  --border-text-color: white;
+  --main-color: gray;
+  --sub-color: red;
+}
+
+/*初期設定*/
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/*共通のスタイル*/
+.pageLayout {
+  background-color: var(--main-color);
+}
+
+.header {
+  display: flex;
+  padding: 10px;
+  margin-left: 50px;
+}
+
+/*ヘッダー*/
+.headerbg {
+  background-color: white;
+  height: 80px;
+}
+
+.headerCalendar {
+  color: var(--sub-color);
+  margin-left: 20px;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.todayButton {
+  color: var(--main-color);
+  margin-left: 700px;
+  font-size: 35px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.todayButton:hover {
+  color: var(--sub-color);
+  transition: 0.3s;
+}
+
+.beforeMonth {
+  margin-left: 50px;
+}
+
+.nextMonth {
+  margin-left: 25px;
+}
+
+.monthAndYear {
+  color: var(--main-color);
+  margin-left: 25px;
+  font-size: 35px;
+  font-weight: 700;
+}
+/*グリッド*/
+.gridparent {
+  display: grid;
+  margin-top: 100px;
+  margin-left: 50px;
+  grid-template-columns: 200px 200px 200px 200px 200px 200px 200px;
+  grid-auto-rows: 170px 150px 150px 150px 150px;
+}
+
+.gridChild1 {
+  border: 2px solid var(--border-text-color);
+  border-radius: 5px;
+}
+
+.gridGrandChild1 {
+  align-items: center;
+}
+.dayOfWeek {
+  background-color: white;
+  color: white;
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: black;
+}
+
+/*予定追加する際のスタイル*/
+
+.daySelector {
+  background-color: var(--main-color);
+  display: flex;
+  cursor: pointer;
+  transition: 0.3s;
+  color: var(--main-color);
+}
+
+.daySelector:hover {
+  background-color: #00a4ac;
+  display: flex;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+.scheduleIndicate {
+  color: white;
+  background-color: #00a4ac;
+}
+
+/*モーダルウィンドウ*/
+
+.modalWindow {
+  height: 25vh;
+  width: 50%;
+  position: fixed;
+  top: 150px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalWindowOfLayout {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 10px 10px 10px 10px rgb(0 0 0 / 0.25);
+  width: 40%;
+  display: flex;
+}
+
+.modalHeader {
+  background-color: var(--main-color);
+  padding: 0.5rem;
+  display: flex;
+}
+
+.modalClose {
+  padding: 4px;
+  height: 25px;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modalClose:hover {
+  padding: 4px;
+  color: var(--sub-color);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.paddingModal {
+  padding: 0.5rem;
+}
+
+.gridOfModal {
+  display: grid;
+  grid-column: 1/5;
+  align-items: end;
+  row-gap: 1.5rem;
+}
+
+.modalDay {
+  color: var(--main-color);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.modalTitle {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-color: var(--main-color);
+  color: var(--main-color);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modalTitle:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width))
+    var(--tw-ring-color);
+  border-color: var(--sub-color);
+  border-width: 600;
+  transition: 0.3s;
+}
+
+.modalTime {
+  text-align: center;
+  color: gray;
+}
+
+.modalTime:hover {
+  cursor: pointer;
+}
+
+.modalTime:focus {
+  cursor: default;
+}
+
+.modalMemo {
+  height: 5rem;
+  width: 100%;
+  border-bottom-width: 2px;
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
+.modalMemo:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width))
+    var(--tw-ring-color);
+  border-color: var(--sub-color);
+  border-width: 600;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: end;
+  padding: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.saveButton {
+  background-color: gray;
+  height: 100px;
+  margin-top: 170px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  color: white;
+  transition: 0.3s;
+}
+
+.saveButton:hover {
+  background-color: red;
+  padding-left: 1.5rem;
+  padding-top: 0.5rem;
+  border-radius: 0.25rem;
+  color: white;
+  transition: 0.3s;
+}
+
+/*当日のスタイル*/
+.nowDay {
+  background-color: var(--sub-color);
+  padding-left: 10px;
+  color: var(--border-text-color);
+}
+/*当日以外*/
+.child1OfText {
+  background-color: black;
+  padding-left: 10px;
+  color: var(--border-text-color);
+}
