@@ -10,6 +10,8 @@ const GlobalContext = React.createContext<{
   setDaySelected: (day: Dayjs) => void;
   showEventModal: boolean;
   setShowEventModal: (value: boolean) => void;
+  showHolidayModal: boolean;
+  setShowHolidayModal: (value: boolean) => void;
   dispatchCalEvent: React.Dispatch<TypeAndPayload>;
   savedEvents: State[];
   selectedEvent: null | State;
@@ -21,6 +23,8 @@ const GlobalContext = React.createContext<{
   setDaySelected: (): void => {},
   showEventModal: false,
   setShowEventModal: (): void => {},
+  showHolidayModal: false,
+  setShowHolidayModal: (): void => {},
   dispatchCalEvent: (): void => {},
   savedEvents: [],
   selectedEvent: null,

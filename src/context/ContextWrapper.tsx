@@ -88,6 +88,7 @@ const ContextWrapper = (props: Props) => {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [daySelected, setDaySelected] = useState<Dayjs>(dayjs());
   const [showEventModal, setShowEventModal] = useState<boolean>(false);
+  const [showHolidayModal, setShowHolidayModal] = useState<boolean>(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [savedEvents, dispatchCalEvent] = useReducer(
     saveEventsReducer,
@@ -116,6 +117,8 @@ const ContextWrapper = (props: Props) => {
         setDaySelected,
         showEventModal,
         setShowEventModal,
+        showHolidayModal,
+        setShowHolidayModal,
         selectedEvent,
         setSelectedEvent,
         dispatchCalEvent,
